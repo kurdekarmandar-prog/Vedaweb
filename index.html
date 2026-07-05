@@ -1,1337 +1,563 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script>
-    if (typeof window !== "undefined" && window.navigator.webdriver) {
-      document.documentElement.classList.add("no-images");
-    }
-  </script>
-  <title>VedaWeb Engine — Interactive Vedic Scripture Portal</title>
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="An interactive, academically grounded, and philological presentation of the four orthodox Hindu Vedas featuring word-by-word grammatical breakdowns, multiple commentary perspectives, and textual comparisons.">
-  <meta name="keywords" content="Vedas, Rigveda, Yajurveda, Samaveda, Atharvaveda, Sanskrit, Philology, Academic Translation, Sayana, Aurobindo, Mantra Explorer">
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="styles.css?v=1.2">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>बाल हिंदी वाटिका - Interactive Hindi Learning App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Yatra+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <!-- Historical Intro Splash Screen Overlay -->
-  <div id="intro-splash" class="splash-overlay">
-    <div class="splash-box glass-panel">
-      <!-- Top header / Skip -->
-      <div class="splash-header">
-        <span class="splash-logo">ॐ VedaWeb Engine</span>
-        <button id="skip-splash-btn" class="skip-btn">Skip Intro ➔</button>
-      </div>
+    <!-- Celebration Canvas for Confetti -->
+    <canvas id="celebration-canvas"></canvas>
 
-      <!-- Slide Contents -->
-      <div class="slides-container">
-        <!-- Slide 1: Oral Preservations -->
-        <div class="splash-slide active" data-slide="1">
-          <div class="slide-visual soundwave-visual">
-            <div class="wave-circle wave-1"></div>
-            <div class="wave-circle wave-2"></div>
-            <div class="wave-circle wave-3"></div>
-            <div class="slide-text-accent">ऋग्वेद</div>
-          </div>
-          <div class="slide-text">
-            <h2>The Era of Oral Transmission (Shruti)</h2>
-            <p class="slide-period">c. 1500 BCE – 1000 BCE</p>
-            <p>For millennia, the Vedas were not written. They were preserved entirely as oral sound (Shruti) utilizing advanced mnemonic systems (like Ghana-Patha) to prevent a single accent or sound from changing.</p>
-          </div>
-        </div>
-
-        <!-- Slide 2: Fragmented Manuscripts -->
-        <div class="splash-slide" data-slide="2">
-          <div class="slide-visual destruction-visual">
-            <div class="dust-particle dp-1"></div>
-            <div class="dust-particle dp-2"></div>
-            <div class="dust-particle dp-3"></div>
-            <div class="slide-text-accent broken">📜</div>
-          </div>
-          <div class="slide-text">
-            <h2>Fragmented Manuscripts & Loss</h2>
-            <p class="slide-period">c. 1000 CE – 1800 CE</p>
-            <p>Through library burnings, geopolitical conflicts, and the decay of organic birch-bark and palm-leaves, many ancient oral lineages and manuscripts were scattered and lost to time.</p>
-          </div>
-        </div>
-
-        <!-- Slide 3: The Great Hunt -->
-        <div class="splash-slide" data-slide="3">
-          <div class="slide-visual hunt-visual">
-            <div class="map-grid"></div>
-            <div class="magnifier">🔍</div>
-            <div class="slide-text-accent leaf">✍️</div>
-          </div>
-          <div class="slide-text">
-            <h2>The Great Manuscript Search</h2>
-            <p class="slide-period">19th Century</p>
-            <p>Traditional pandits and global scholars embarked on massive search efforts into remote temples, private library vaults, and mountain monasteries to locate surviving manuscript folios.</p>
-          </div>
-        </div>
-
-        <!-- Slide 4: Comparative Philology -->
-        <div class="splash-slide" data-slide="4">
-          <div class="slide-visual reconciliation-visual">
-            <div class="text-panel panel-left">agniṁ īḷe...</div>
-            <div class="scanline"></div>
-            <div class="text-panel panel-right">अग्निमीळे पुरोहितं...</div>
-          </div>
-          <div class="slide-text">
-            <h2>Comparative Restoration</h2>
-            <p class="slide-period">Late 19th & 2000s</p>
-            <p>By comparing scattered written copies against surviving uncorrupted oral traditions, philologists meticulously reconstructed the pristine texts word-for-word.</p>
-          </div>
-        </div>
-
-        <!-- Slide 5: Digital Preservation -->
-        <div class="splash-slide" data-slide="5">
-          <div class="slide-visual digital-visual">
-            <div class="matrix-code">1010101010</div>
-            <div class="glowing-om">ॐ</div>
-          </div>
-          <div class="slide-text">
-            <h2>VedaWeb Digital Heritage</h2>
-            <p class="slide-period">Present Day</p>
-            <p>Today, advanced interactive databases, phonetic tools, and semantic search models preserve this UNESCO Intangible Heritage of Humanity, keeping it open to all seekers.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Footer & Buttons -->
-      <div class="splash-footer">
-        <div class="splash-progress">
-          <span class="progress-dot active" data-target-slide="1"></span>
-          <span class="progress-dot" data-target-slide="2"></span>
-          <span class="progress-dot" data-target-slide="3"></span>
-          <span class="progress-dot" data-target-slide="4"></span>
-          <span class="progress-dot" data-target-slide="5"></span>
-        </div>
-        <div class="splash-nav-btns">
-          <button id="prev-splash-btn" class="nav-arrow-btn hidden">◀ Back</button>
-          <button id="next-splash-btn" class="cta-btn gold-btn splash-next-btn">Next Slide ➔</button>
-          <button id="enter-splash-btn" class="cta-btn gold-btn splash-enter-btn hidden">Enter VedaWeb Engine ॐ</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Persistent Devanagari OM Watermark -->
-  <div class="bg-om-watermark" id="om-watermark">ॐ</div>
-
-  <!-- Background Glow Effects -->
-  <div class="glow-orb orb-1"></div>
-  <div class="glow-orb orb-2"></div>
-
-  <!-- Header & Navigation -->
-  <header class="app-header">
-    <div class="logo-container" id="nav-logo">
-      <div class="logo-mandala"></div>
-      <div class="logo-text">
-        <span class="title-primary">VEDAWEB</span>
-        <span class="title-sub">ENGINE</span>
-      </div>
-    </div>
-    <nav class="app-nav">
-      <button class="nav-btn active" data-target="home-view">Home</button>
-      <button class="nav-btn" data-target="saving-vedas-view">Saving the Vedas</button>
-      <button class="nav-btn" data-target="timeline-view">Historical Timeline</button>
-      <button class="nav-btn" data-target="explorer-view">Mantra Explorer</button>
-      <button class="nav-btn" data-target="matrix-view">Veda Comparison</button>
-      <button class="nav-btn" data-target="about-view">About the Vedas</button>
-      <button class="nav-btn" data-target="subscribe-view">Online Academy</button>
-      <button class="nav-btn" data-target="gurukul-stays-view">Residential Gurukuls</button>
-      <button class="nav-btn" data-target="resources-view">Resources & AI Hub</button>
-      <button class="nav-btn" data-target="support-view">Support</button>
-    </nav>
-    <div class="header-right-controls">
-      <button id="ambient-drone-toggle" class="ambient-btn">ॐ Ambient Hum</button>
-      <div class="search-bar-container">
-        <input type="text" id="global-search" placeholder="Search deity, seer, meter or root words...">
-        <span class="search-icon">🔍</span>
-      </div>
-    </div>
-  </header>
-
-  <!-- Main Content Container -->
-  <main class="app-container">
-    
-    <!-- View -1: Saving the Vedas -->
-    <section id="saving-vedas-view" class="view-panel">
-      <div class="welcome-card glass-panel" style="text-align: center; padding: 40px;">
-        <h2>The Importance and Efforts Taken to Save the Vedas</h2>
-        <p style="margin-top: 20px; font-size: 1.1em; line-height: 1.6; max-width: 800px; margin-left: auto; margin-right: auto;">
-          Throughout history, tremendous efforts have been made to preserve the sacred knowledge of the Vedas. 
-          As depicted below, even the divine incarnations, such as the Matsya Avatar, intervened to protect these timeless scriptures from cosmic dissolution. 
-          Through the meticulous oral traditions of the Rishis and later the dedication of scholars to locate fragmented manuscripts, the Vedas have survived millennia to guide humanity.
-        </p>
-        <img src="images/saving_vedas.jpg" alt="Matsya Avatar saving the Vedas" style="max-width: 100%; border-radius: 12px; margin-top: 30px; border: 2px solid var(--gold-primary); box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
-      </div>
-    </section>
-
-    <!-- View 0: Home/Welcome Page (New Default View) -->
-    <section id="home-view" class="view-panel active">
-      <div class="welcome-card glass-panel">
-        <div class="welcome-banner-bg"></div>
-        <div class="welcome-overlay"></div>
-        
-        <div class="welcome-content">
-          <div class="mandala-accent"></div>
-          <h1>VedaWeb Engine</h1>
-          <p class="tagline">An Interactive Portal to the Oldest Liturgical & Philosophical Textual Layers of Humanity</p>
-          
-          <div class="history-grid">
-            <div class="history-main">
-              <h2>Historical Context & Insights</h2>
-              <p>The <strong>Vedas</strong> (from the Sanskrit root <em>vid</em>, meaning "to know") are a large body of religious texts originating in ancient India. Composed in Vedic Sanskrit between 1500 and 500 BCE, they represent the oldest layer of Sanskrit literature and the oldest scriptures of Hinduism.</p>
-              
-              <p>For centuries, the Vedas were not written down. They were preserved and transmitted entirely through the oral tradition (<strong>Shruti</strong> — "that which is heard"). To prevent errors in sound, pitch, and meter, Vedic scholars developed incredibly sophisticated mnemonic systems, including the <em>Pada-Patha</em> (word-by-word path) and the complex <em>Ghana-Patha</em> (weaving words in back-and-forth patterns). This rigorous oral technology successfully preserved the texts word-for-word across thousands of years without the aid of writing.</p>
-              
-              <h3>Structure of the Vedic Canon</h3>
-              <p>Each Veda is structurally partitioned into four distinct chronological layers:</p>
-              <ul>
-                <li><strong>Samhita:</strong> The core collection of mantras, hymns, and sacred formulas. (Our primary explorer focus).</li>
-                <li><strong>Brahmana:</strong> Ritual commentaries detailing the execution of sacrifices (Yajnas) and liturgical rules.</li>
-                <li><strong>Aranyaka:</strong> "Forest texts" outlining meditative practices and allegorical ritual explanations.</li>
-                <li><strong>Upanishad:</strong> The final philosophical treatises (<em>Vedanta</em>) discussing ultimate reality (Brahman) and the self (Atman).</li>
-              </ul>
-            </div>
-            
-            <div class="history-side">
-              <h2>The Four orthodox Vedas</h2>
-              <div class="veda-mini-card-grid">
-                <div class="veda-mini-card">
-                  <h4>Rigveda (ऋग्वेद)</h4>
-                  <p>The Veda of Praise. Contains 1,028 hymns dedicated to cosmic aspects and natural forces.</p>
+    <!-- App Container -->
+    <div class="app-container">
+        <!-- Top Header & Scoreboard -->
+        <header class="app-header">
+            <div class="logo-area">
+                <span class="logo-emoji">🎨</span>
+                <div>
+                    <h1 class="logo-title">बाल हिंदी वाटिका</h1>
+                    <p class="logo-subtitle">आओ खेलें और सीखें!</p>
                 </div>
-                <div class="veda-mini-card">
-                  <h4>Yajurveda (यजुर्वेद)</h4>
-                  <p>The Veda of Sacrifice. Formulas and prose instructions for performing sacred rites.</p>
+            </div>
+            <div class="scoreboard">
+                <div class="score-badge">
+                    <span class="star-icon">⭐</span>
+                    <span id="star-count">0</span> तारे
                 </div>
-                <div class="veda-mini-card">
-                  <h4>Samaveda (सामवेद)</h4>
-                  <p>The Veda of Melody. 1,875 melodies sung by chanting priests during rites.</p>
+                <div class="score-badge">
+                    <span class="badge-icon">🎖️</span>
+                    <span id="badge-count">0</span> पदक
                 </div>
-                <div class="veda-mini-card">
-                  <h4>Atharvaveda (अथर्ववेद)</h4>
-                  <p>The Veda of Domestic Life. Focuses on medicine, psychology, philosophy, and spells.</p>
-                </div>
-              </div>
             </div>
-          </div>
+        </header>
 
-          <div class="welcome-stats">
-            <div class="stat-item">
-              <span class="stat-val">4</span>
-              <span class="stat-lbl">Primary Vedas</span>
-            </div>
-            <a href="https://vedicheritage.gov.in/samhitas/" target="_blank" class="stat-item clickable-stat" title="Access all 20,388 Mantras on the Vedic Heritage Portal">
-              <span class="stat-val">20,388</span>
-              <span class="stat-lbl text-link">Sacred Mantras 🔗</span>
-            </a>
-            <a href="https://vedicheritage.gov.in/samhitas/rigveda/" target="_blank" class="stat-item clickable-stat" title="Access all 1,028 Rigvedic Suktas on the Vedic Heritage Portal">
-              <span class="stat-val">1,028</span>
-              <span class="stat-lbl text-link">Rigvedic Suktas 🔗</span>
-            </a>
-            <div class="stat-item">
-              <span class="stat-val">3,500+</span>
-              <span class="stat-lbl">Years of Preservation</span>
-            </div>
-          </div>
+        <!-- Navigation Tabs -->
+        <nav class="app-nav">
+            <button class="nav-btn active" data-tab="poem">
+                <span class="nav-icon">📖</span>
+                 कविता पाठक
+            </button>
+            <button class="nav-btn" data-tab="vocab">
+                <span class="nav-icon">🧩</span>
+                 शब्द खेल
+            </button>
+            <button class="nav-btn" data-tab="quiz">
+                <span class="nav-icon">📝</span>
+                 प्रश्नोत्तरी
+            </button>
+            <button class="nav-btn" data-tab="sandbox">
+                <span class="nav-icon">🎨</span>
+                 वाक्य रचना
+            </button>
+        </nav>
 
-          <div class="welcome-cta">
-            <button class="cta-btn gold-btn" onclick="document.querySelector('[data-target=\'explorer-view\']').click()">Enter Mantra Explorer ➔</button>
-            <button class="cta-btn outline-btn" onclick="document.querySelector('[data-target=\'matrix-view\']').click()">Veda Comparison Matrix ➔</button>
-          </div>
-        </div>
-      </div>
-    </section>
+        <!-- Main Content Area -->
+        <main class="app-content">
+            <!-- TAB 1: ANIMATED POEM READER -->
+            <section id="tab-poem" class="tab-panel active">
+                <div class="poem-grid">
+                    <!-- Left: Illustration & Discussion -->
+                    <div class="illustration-panel">
+                        <div class="card-title-badge">राष्ट्रीय ध्वज और बाल-वीर</div>
+                        <div class="vector-art">
+                            <img src="./hoisting_flag.png" alt="बाल वीर ध्वजारोहण करते हुए" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--border-radius-md);">
+                        </div>
 
-    <!-- View 1: Explorer View -->
-    <section id="explorer-view" class="view-panel">
-      <div class="explorer-layout">
-        
-        <!-- Sidebar Navigation Tree -->
-        <aside class="sidebar-nav">
-          <div class="sidebar-header">
-            <h3>Textual Hierarchy</h3>
-          </div>
-          <div class="veda-tree" id="veda-tree-nav">
-            <!-- Dynamically populated via app.js -->
-          </div>
-        </aside>
-
-        <!-- Main Display Panel -->
-        <article class="content-display">
-          <!-- Selection Title/Breadcrumb -->
-          <div class="verse-header-card">
-            <h1 id="mantra-title">Loading Mantra...</h1>
-            <div class="verse-meta-quick">
-              <span class="meta-tag source-tag"><strong class="label">Veda Source:</strong> <span id="meta-source-text">-</span></span>
-              <span class="meta-tag coords-tag"><strong class="label">Coordinates:</strong> <span id="meta-coords-text">-</span></span>
-            </div>
-          </div>
-
-          <!-- Dynamic Illustration Banner -->
-          <div class="verse-banner-container">
-            <img id="verse-banner" src="" alt="Vedic Tradition Illustration">
-            <div class="banner-overlay"></div>
-          </div>
-
-          <hr class="divider">
-
-          <!-- SECTION 1: Canonical Script & Phonetics -->
-          <section class="script-section glass-panel">
-            <div class="script-section-header">
-              <h2>1. Canonical Script & Phonetics</h2>
-              <div class="audio-control-row">
-                <button id="play-audio-btn" class="audio-btn">🔊 Listen Pronunciation</button>
-                <div class="audio-player-ui">
-                  <div class="audio-progress-bar">
-                    <div class="audio-progress-fill" id="audio-progress"></div>
-                  </div>
-                  <span class="audio-status" id="audio-status-text">Audio Ready</span>
-                </div>
-                <a id="youtube-link-btn" href="" target="_blank" class="yt-link-btn">📺 Authentic Chanting (YouTube)</a>
-              </div>
-            </div>
-            <div class="script-box">
-              <div class="script-row">
-                <span class="script-label">Devanagari</span>
-                <p id="devanagari-text" class="devanagari-font">Loading...</p>
-              </div>
-              <div class="script-row">
-                <span class="script-label">IAST Transliteration</span>
-                <p id="iast-text" class="iast-font">Loading...</p>
-              </div>
-            </div>
-            <div class="interaction-tip">
-              💡 <em>Tip: Hover or tap individual words below in the Lexicon table to highlight Sanskrit details.</em>
-            </div>
-          </section>
-
-          <!-- SECTION 2: Lexicon & Word-by-Word Breakdown -->
-          <section class="lexicon-section glass-panel">
-            <h2>2. Lexicon & Word-by-Word Breakdown (Pada-Patha)</h2>
-            <div class="table-container">
-              <table id="lexicon-table">
-                <thead>
-                  <tr>
-                    <th>Sanskrit Word</th>
-                    <th>English Literal Meaning</th>
-                    <th>Grammatical Context</th>
-                  </tr>
-                </thead>
-                <tbody id="lexicon-table-body">
-                  <!-- Dynamically populated -->
-                </tbody>
-              </table>
-            </div>
-          </section>
-
-          <!-- SECTION 3: Scholarly Translations -->
-          <section class="translation-section glass-panel">
-            <h2>3. Scholarly Translation</h2>
-            <div class="translation-box">
-              <div class="academic-translation">
-                <h3>Literal Academic Consensus</h3>
-                <blockquote id="academic-trans-text">Loading...</blockquote>
-              </div>
-              
-              <div class="commentary-translation">
-                <h3>Traditional Commentary Synthesis</h3>
-                <div class="commentary-tabs" id="commentary-tabs-container">
-                  <!-- Dynamically populated schools of thought tabs -->
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- SECTION 4: Vedic Metadata Context -->
-          <section class="metadata-section glass-panel">
-            <h2>4. Vedic Metadata Context</h2>
-            <div class="metadata-grid">
-              <div class="meta-item">
-                <span class="meta-label">Rishi (Seer)</span>
-                <span id="meta-rishi" class="meta-value">Loading...</span>
-              </div>
-              <div class="meta-item">
-                <span class="meta-label">Devata (Deity/Aspect)</span>
-                <span id="meta-devata" class="meta-value">Loading...</span>
-              </div>
-              <div class="meta-item">
-                <span class="meta-label">Chandas (Meter)</span>
-                <span id="meta-chandas" class="meta-value">Loading...</span>
-              </div>
-            </div>
-          </section>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- View 2: Veda Comparison Matrix -->
-    <section id="matrix-view" class="view-panel">
-      <div class="matrix-layout glass-panel">
-        <div class="view-header">
-          <h1>Veda Comparison Matrix</h1>
-          <p class="subtitle">Side-by-side comparative analysis of the four orthodox Sanskrit Samhitas.</p>
-        </div>
-        <div class="matrix-banner-container">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" data-src="images/library.png" alt="Ancient Vedic Library">
-          <div class="banner-overlay"></div>
-        </div>
-        <div class="table-container">
-          <table class="comparison-matrix-table">
-            <thead>
-              <tr>
-                <th>Attribute</th>
-                <th>Rigveda (ऋग्वेद)</th>
-                <th>Yajurveda (यजुर्वेद)</th>
-                <th>Samaveda (सामवेद)</th>
-                <th>Atharvaveda (अथर्ववेद)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="attr-name">Primary Focus</td>
-                <td>Hymns of praise, nature deities, and cosmic order (Rta). Recited by invoking priests.</td>
-                <td>Sacrificial formulas, ritual actions, prose guidebooks, and ceremony mechanics.</td>
-                <td>Melodic chanting, musical notations, and soma purification liturgies.</td>
-                <td>Spells, incantations, medicine, domestic guidelines, and high metaphysical inquiries.</td>
-              </tr>
-              <tr>
-                <td class="attr-name">Key Seers (Rishis)</td>
-                <td><span class="matrix-hoverable" data-term="Madhuchhandas">Madhuchhandas</span>, <span class="matrix-hoverable" data-term="Vishvamitra">Vishvamitra</span>, <span class="matrix-hoverable" data-term="Vashistha">Vashistha</span>, <span class="matrix-hoverable" data-term="Vamadeva">Vamadeva</span>, <span class="matrix-hoverable" data-term="Atri">Atri</span>, <span class="matrix-hoverable" data-term="Bharadvaja">Bharadvaja</span>.</td>
-                <td><span class="matrix-hoverable" data-term="Yajnavalkya">Yajnavalkya</span>, <span class="matrix-hoverable" data-term="Dadhyach">Dadhyach Atharvana</span>.</td>
-                <td><span class="matrix-hoverable" data-term="Jaimini">Jaimini</span>, <span class="matrix-hoverable" data-term="Bharadvaja">Bharadvaja</span>.</td>
-                <td><span class="matrix-hoverable" data-term="Bhrigu">Bhrigu</span>, <span class="matrix-hoverable" data-term="Atharvan">Atharvan</span>, <span class="matrix-hoverable" data-term="Angiras">Angiras</span>.</td>
-              </tr>
-              <tr>
-                <td class="attr-name">Primary Priest (*Ṛtvik*)</td>
-                <td><strong>Hotṛ</strong> (The Invoker) — Recites hymns to invite the devas to the ritual space.</td>
-                <td><strong>Adhvaryu</strong> (The Executor) — Performs physical rites and recites formulas.</td>
-                <td><strong>Udgātṛ</strong> (The Chanter) — Sings chants to please the deities.</td>
-                <td><strong>Brahman</strong> (The Overseer) — Protects and corrects ritual errors silently.</td>
-              </tr>
-              <tr>
-                <td class="attr-name">Predominant Meter</td>
-                <td><span class="matrix-hoverable" data-term="Gayatri">Gayatri</span>, <span class="matrix-hoverable" data-term="Trishṭubh">Trishṭubh</span>, <span class="matrix-hoverable" data-term="Jagati">Jagati</span>.</td>
-                <td><span class="matrix-hoverable" data-term="Yajushi">Yajushi Prose</span>, <span class="matrix-hoverable" data-term="Jagati">Jagati</span>.</td>
-                <td><span class="matrix-hoverable" data-term="Gayatri">Gayatri</span>, <span class="matrix-hoverable" data-term="Jagati">Jagati</span>.</td>
-                <td><span class="matrix-hoverable" data-term="Anuṣṭubh">Anuṣṭubh</span>, <span class="matrix-hoverable" data-term="Trishṭubh">Trishṭubh</span>.</td>
-              </tr>
-              <tr>
-                <td class="attr-name">Philosophical Sub-Core</td>
-                <td>Rta (Cosmic order), Satya (Truth), and nature consciousness.</td>
-                <td>Yajna (Action/Sacrifice) as the central cosmic motor.</td>
-                <td>Nada-Brahma (Sound as ultimate reality) and ecstatic devotion.</td>
-                <td>Prana (Life breath), Kāla (Time), and micro-macrocosmic alignment.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- View 3: About the Vedas View -->
-    <section id="about-view" class="view-panel">
-      <div class="about-layout glass-panel">
-        <div class="view-header">
-          <h1>Understanding the Vedic Canon</h1>
-          <p class="subtitle">Historical, linguistic, and structural context of the primary orthodox layers.</p>
-        </div>
-        <div class="about-banner-container">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" data-src="images/scholars.png" alt="Ancient Indian Scholars">
-          <div class="banner-overlay"></div>
-        </div>
-        <div class="about-grid">
-          <div class="about-card">
-            <h3>Samhita Layer</h3>
-            <p>The primary core consisting of mantra text, hymns, and sacred formulas. This is the oldest layer (c. 1500–1000 BCE) written in archaic Vedic Sanskrit, characterized by pitch accentuation and unique grammatical structures.</p>
-          </div>
-          <div class="about-card">
-            <h3>Brahmana Layer</h3>
-            <p>Prose commentaries explaining the ritualistic meaning, mythological background, and mechanics behind the Samhita mantras during sacrifices.</p>
-          </div>
-          <div class="about-card">
-            <h3>Aranyaka Layer</h3>
-            <p>Forest books focusing on the allegorical, meditative, and dangerous ritual aspects, serving as a transition into intellectual mysticism.</p>
-          </div>
-          <div class="about-card">
-            <h3>Upanishad Layer</h3>
-            <p>The final philosophical treatises (*Vedanta*) exploring the nature of ultimate reality (*Brahman*), the individual soul (*Atman*), and liberation.</p>
-          </div>
-        </div>
-        <div class="about-footer-note">
-          <blockquote>
-            "Ekam Sat Vipra Bahudha Vadanti" ── <em>"Truth is One, though the wise speak of it in various ways."</em>
-            <br>
-            <span class="citation">— Rigveda 1.164.46</span>
-          </blockquote>
-        </div>
-      </div>
-    </section>
-
-    <!-- View 4: Resources & AI Hub View -->
-    <section id="resources-view" class="view-panel">
-      <div class="resources-layout glass-panel">
-        <div class="view-header">
-          <h1>Resources & AI RAG Hub</h1>
-          <p class="subtitle">Official peer-reviewed portals, traditional audio recitations, and application integrity framework.</p>
-        </div>
-
-        <!-- Resources Banner -->
-        <div class="matrix-banner-container">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" data-src="images/library.png" alt="Ancient Library Reference">
-          <div class="banner-overlay"></div>
-        </div>
-
-        <!-- Section A: Official Reference Libraries -->
-        <div class="resources-section">
-          <h2>Verified Digital Portals</h2>
-          <div class="resources-grid">
-            <a href="https://culture.gov.in/sanskriti/vedic-heritage-portal" target="_blank" class="resource-link-card">
-              <div class="card-glow"></div>
-              <h3>Vedic Heritage Portal</h3>
-              <p class="source-lbl">Ministry of Culture, Govt. of India</p>
-              <p>The definitive government repository housing audio catalogs, text recensions, and manuscripts of the various Vedic shakhas (branches).</p>
-              <span class="btn-visit">Visit Portal ➔</span>
-            </a>
-
-            <a href="https://ignca.gov.in/" target="_blank" class="resource-link-card">
-              <div class="card-glow"></div>
-              <h3>IGNCA Digital Library</h3>
-              <p class="source-lbl">Indira Gandhi National Centre for the Arts</p>
-              <p>Provides critical digitized manuscripts and authoritative Sanskrit translations accompanying standard commentaries (e.g. Sayanacharya).</p>
-              <span class="btn-visit">Access Catalog ➔</span>
-            </a>
-
-            <a href="https://archive.org/details/rigvedacomplete" target="_blank" class="resource-link-card">
-              <div class="card-glow"></div>
-              <h3>Academic Translations Archive</h3>
-              <p class="source-lbl">Internet Archive Open Access Library</p>
-              <p>Open access to scholarly collections of Vedic translations, including critical editions by standard Indologists (Jamison, Brereton, Max Müller).</p>
-              <span class="btn-visit">Browse Library ➔</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Section B: Authentic YouTube Chanting Recitations -->
-        <div class="resources-section">
-          <h2>Official Audio Recitations</h2>
-          <p class="section-desc">Traditional oral chanting of the four Vedas, preserved and recorded by the IGNCA Ministry of Culture:</p>
-          <div class="video-grid">
-            <a href="https://www.youtube.com/results?search_query=Rigveda+Chanting" target="_blank" class="video-card">
-              <div class="video-thumbnail thumb-rv">
-                <span class="play-indicator">▶</span>
-              </div>
-              <div class="video-meta">
-                <h4>Rigveda Chanting Recitation</h4>
-                <p>Complete Sakala Shakha oral chanting, demonstrating precise pitch accents (Udatta, Anudatta, Svarita).</p>
-              </div>
-            </a>
-
-            <a href="https://www.youtube.com/results?search_query=Yajurveda+Chanting" target="_blank" class="video-card">
-              <div class="video-thumbnail thumb-yv">
-                <span class="play-indicator">▶</span>
-              </div>
-              <div class="video-meta">
-                <h4>Yajurveda Chanting Recitation</h4>
-                <p>Traditional Shukla Yajurveda (Vajasaneyi Samhita) recitation by pandits following classical rules.</p>
-              </div>
-            </a>
-
-            <a href="https://www.youtube.com/results?search_query=Samaveda+Chanting" target="_blank" class="video-card">
-              <div class="video-thumbnail thumb-sv">
-                <span class="play-indicator">▶</span>
-              </div>
-              <div class="video-meta">
-                <h4>Samaveda Chanting Recitation</h4>
-                <p>Musical Samavedic Gana chanting, featuring the oldest notation structures and vocal modulations.</p>
-              </div>
-            </a>
-
-            <a href="https://www.youtube.com/results?search_query=Atharvaveda+Chanting" target="_blank" class="video-card">
-              <div class="video-thumbnail thumb-av">
-                <span class="play-indicator">▶</span>
-              </div>
-              <div class="video-meta">
-                <h4>Atharvaveda Chanting Recitation</h4>
-                <p>Traditional Atharvaveda recitations (Shaunaka recension), emphasizing domestic and natural therapies.</p>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <!-- Section C: AI RAG Integrity Architecture -->
-        <div class="resources-section">
-          <h2>VedaWeb Engine RAG Architecture</h2>
-          <p class="section-desc">To ensure 100% truthfulness and prevent hallucinations, VedaWeb uses a vector-based Retrieval-Augmented Generation (RAG) framework filtering outputs through strict structural constraints:</p>
-          
-          <div class="rag-diagram">
-            <div class="diag-node">
-              <div class="diag-icon">👤</div>
-              <span>User Query</span>
-            </div>
-            <div class="diag-arrow">➔</div>
-            <div class="diag-node highlight-node">
-              <div class="diag-icon">🗄️</div>
-              <span>Verified Database</span>
-              <small>Mandala / Sukta / Mantra Index</small>
-            </div>
-            <div class="diag-arrow">➔</div>
-            <div class="diag-node">
-              <div class="diag-icon">🛡️</div>
-              <span>System Prompt Filter</span>
-              <small>Sāyaṇa / Aurobindo Partition</small>
-            </div>
-            <div class="diag-arrow">➔</div>
-            <div class="diag-node success-node">
-              <div class="diag-icon">✅</div>
-              <span>Hallucination-Free Response</span>
-            </div>
-          </div>
-
-          <div class="prompt-container">
-            <h3>VedaGyan AI Backend Instruction Matrix</h3>
-            <pre class="prompt-code"><code># Role & Core Mission
-You are "VedaGyan AI," the backend intellectual engine for an educational application dedicated to the accurate presentation of the four orthodox Hindu Vedas (Rigveda, Yajurveda, Samaveda, and Atharvaveda). Your fundamental directive is to provide deep, structured, historical, and philological analysis with absolute linguistic and contextual fidelity. 
-
-# Strict Truthfulness & Zero-Hallucination Guardrails
-1. GROUNDED OUTPUTS: You must ONLY synthesize answers using verified text from the provided context database or explicit, trusted primary structural metrics.
-2. ANTI-INTERPRETATION BIAS: Never introduce modern personal or political biases. Partition traditional viewpoints cleanly (e.g. Sayana vs Aurobindo vs academic).
-3. THE "I DO NOT KNOW" RULE: If a user asks a question that cannot be explicitly verified, reply: "I cannot verify this interpretation with absolute historical accuracy based on the authenticated textual layers currently available."</code></pre>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- View 5: Historical Timeline & Demographic Shifts -->
-    <section id="timeline-view" class="view-panel">
-      <div class="timeline-layout glass-panel">
-        <div class="view-header">
-          <h1>Chronology & Demographic Evolution of Sanatan Dharma</h1>
-          <p class="subtitle">A historical analysis of geographical transitions, external invasions, and demographic shifts across centuries.</p>
-        </div>
-
-        <!-- Timeline Banner Image -->
-        <div class="matrix-banner-container">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" data-src="images/scholars.png" alt="Historical Timeline Background">
-          <div class="banner-overlay"></div>
-        </div>
-
-        <!-- Section 1: Interactive Timeline -->
-        <div class="timeline-section">
-          <h2>Historical Milestones & Territorial Transitions</h2>
-          
-          <div class="timeline-container-grid">
-            <!-- Left Panel: Scrollable timeline events -->
-            <div class="timeline-scroll-column">
-              <div class="custom-timeline">
-                
-                <div class="timeline-event active-event" data-era-index="0">
-                  <div class="event-marker"></div>
-                  <div class="event-content">
-                    <span class="event-year">c. 3000 BCE – 1500 BCE</span>
-                    <h3>Vedic Era & The Foundations of Sanatan Dharma</h3>
-                    <p>The compilation of the Rigveda Samhita. Sanatan Dharma flourishes as the primary philosophical, spiritual, and social order across the entire Indian Subcontinent (from the Indus Valley and Sarasvati region, extending across Aryavarta).</p>
-                  </div>
-                </div>
-
-                <div class="timeline-event" data-era-index="1">
-                  <div class="event-marker"></div>
-                  <div class="event-content">
-                    <span class="event-year">c. 500 BCE – 300 CE</span>
-                    <h3>Epic & Classical Expansion (Akhand Bharat Sphere)</h3>
-                    <p>Compilation of the Ramayana, Mahabharata, and early Puranas. The cultural influence of Sanatan Dharma peaks, extending beyond geographical India into Central Asia (Gandhara, Bactria), Afghanistan, and Southeast Asia (Angkor, Champa, Srivijaya).</p>
-                  </div>
-                </div>
-
-                <div class="timeline-event warning-event" data-era-index="2">
-                  <div class="event-marker"></div>
-                  <div class="event-content">
-                    <span class="event-year">712 CE – 1192 CE</span>
-                    <h3>Early Invasions & Sindh Frontier Collapse</h3>
-                    <p>Muhammad bin Qasim invades Sindh (712 CE), marking the first major external invasion. Subsequent raids by Mahmud of Ghazni destroy key intellectual and religious centers (like Somnath), initiating the gradual reduction of Sanatan practices along the western frontiers (modern-day Pakistan and Balochistan region).</p>
-                  </div>
-                </div>
-
-                <div class="timeline-event warning-event" data-era-index="3">
-                  <div class="event-marker"></div>
-                  <div class="event-content">
-                    <span class="event-year">1206 CE – 1707 CE</span>
-                    <h3>Delhi Sultanate & Mughal Rule (Invasions & Conversions)</h3>
-                    <p>Centuries of systematic campaigns, temple destruction, and the imposition of Jizya (tax on non-Muslims) under various rulers. This period witnesses massive forced and demographic conversions in regions like East Bengal (now Bangladesh) and northern/western borderlands (Gandhara/Kabul valleys), transforming once-cradle regions of Vedic culture into non-Sanatan majorities.</p>
-                  </div>
-                </div>
-
-                <div class="timeline-event warning-event" data-era-index="4">
-                  <div class="event-marker"></div>
-                  <div class="event-content">
-                    <span class="event-year">1947 CE</span>
-                    <h3>Partition of British India & Demographic Severance</h3>
-                    <p>The geopolitical division of the subcontinent on religious lines. The creation of West Pakistan (now Pakistan) and East Pakistan (now Bangladesh) results in the immediate demographic displacement of millions of Hindus. In Pakistan, the Hindu population collapses from approximately 15-20% in 1947 to less than 2% in subsequent decades due to migration and conversions. In Bangladesh, the Hindu demographic drops from roughly 28% in 1941 to under 9% in recent census records.</p>
-                  </div>
-                </div>
-
-                <div class="timeline-event" data-era-index="5">
-                  <div class="event-marker"></div>
-                  <div class="event-content">
-                    <span class="event-year">Present Day</span>
-                    <h3>Modern Global & Subcontinental Demographic Reality</h3>
-                    <p>Sanatan Dharma is primarily concentrated within the republic of India, Nepal, and Mauritius, with minority diasporas globally. The historical geographical core of Vedic culture (e.g., Afghanistan/Gandhara, Indus Valley/Pakistan, Bengal delta/Bangladesh) is now almost entirely converted, representing a massive shift from the faith's peak historical footprints.</p>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            <!-- Right Panel: Sticky map visualizer -->
-            <div class="timeline-map-column">
-              <div class="timeline-map-sticky-panel glass-panel">
-                <div class="map-hud-header">
-                  <span class="hud-era-label">Active Period</span>
-                  <h3 id="map-era-title">Vedic Era</h3>
-                  <p id="map-era-range" class="hud-range">3000 BCE – 1500 BCE</p>
-                </div>
-                
-                <div class="map-vector-wrapper">
-                  <svg viewBox="0 0 500 500" class="subcontinent-map">
-                    <defs>
-                      <linearGradient id="gold-glow-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="rgba(212, 175, 55, 0.2)" />
-                        <stop offset="100%" stop-color="rgba(212, 175, 55, 0.45)" />
-                      </linearGradient>
-                      <linearGradient id="crimson-glow-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="rgba(231, 76, 60, 0.12)" />
-                        <stop offset="100%" stop-color="rgba(231, 76, 60, 0.35)" />
-                      </linearGradient>
-                    </defs>
-                    
-                    <!-- Region 1: Afghanistan (Gandhara) -->
-                    <path id="region-afg" class="map-region active-sanatan" d="M 80,110 C 60,110 40,110 20,120 C 20,160 40,200 60,230 C 70,200 80,160 80,110 Z" />
-                    
-                    <!-- Region 2: Pakistan (Sindh/Indus) -->
-                    <path id="region-pak" class="map-region active-sanatan" d="M 160,100 C 165,150 170,170 160,180 C 150,190 130,200 130,220 C 110,225 80,230 60,230 C 50,200 60,160 80,110 C 100,110 130,105 160,100 Z" />
-                    
-                    <!-- Region 3: India (Bharat Core) -->
-                    <path id="region-ind" class="map-region active-sanatan" d="M 160,100 C 180,80 230,100 250,110 C 270,120 290,110 310,110 C 330,125 320,140 310,150 C 300,160 300,170 300,180 C 310,210 290,240 270,280 C 255,310 245,350 230,390 C 220,380 210,340 200,310 C 190,290 185,270 170,250 C 150,240 130,230 130,220 C 130,200 150,190 160,180 C 170,170 165,150 160,100 Z" />
-                    
-                    <!-- Region 4: Bangladesh (East Bengal) -->
-                    <path id="region-bgd" class="map-region active-sanatan" d="M 300,150 C 315,145 325,150 330,155 C 330,175 325,190 315,200 C 305,195 300,180 300,150 Z" />
-                    
-                    <!-- Region 5: Southeast Asia (Suvarnabhumi) -->
-                    <path id="region-sea" class="map-region" d="M 330,200 C 360,210 390,200 420,220 C 440,240 450,280 430,340 C 410,360 380,350 360,310 C 350,280 340,250 330,200 Z" />
-                    
-                    <!-- Region 6: Sri Lanka (Sinhala) -->
-                    <path id="region-sl" class="map-region active-sanatan" d="M 235,400 C 240,400 245,410 240,420 C 235,425 230,415 235,400 Z" />
-                  </svg>
-                  
-                  <!-- Geographic Labels overlay -->
-                  <div class="map-label lbl-afg" style="top: 24%; left: 10%;">Gandhara<br><small id="status-afg">Active</small></div>
-                  <div class="map-label lbl-pak" style="top: 32%; left: 22%;">Indus Valley<br><small id="status-pak">Active</small></div>
-                  <div class="map-label lbl-ind" style="top: 48%; left: 42%;">Bharat Core<br><small id="status-ind">Active</small></div>
-                  <div class="map-label lbl-bgd" style="top: 34%; left: 62%;">Vanga<br><small id="status-bgd">Active</small></div>
-                  <div class="map-label lbl-sea" style="top: 56%; left: 78%;">Suvarnabhumi<br><small id="status-sea">Unpopulated</small></div>
-                  <div class="map-label lbl-sl" style="top: 84%; left: 47%;">Sinhala<br><small id="status-sl">Active</small></div>
-                </div>
-
-                <div class="map-legend">
-                  <div class="legend-item"><span class="legend-dot dot-active"></span> Sanatan Dharma Peak</div>
-                  <div class="legend-item"><span class="legend-dot dot-lost"></span> Lost / Shifted</div>
-                  <div class="legend-item"><span class="legend-dot dot-neutral"></span> Other Influence</div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Section 2: Demographic Data Visualization Panel -->
-        <div class="timeline-section">
-          <h2>Demographic Shrinkage Analysis (Peak vs. Modern Era)</h2>
-          <p class="section-desc">Comparing the historical peak influence zones of Sanatan Dharma against current religious demographics, illustrating the impact of conversions, invasions, and migrations:</p>
-          
-          <div class="demographics-grid-display">
-            
-            <!-- Region 1: Afghanistan -->
-            <div class="demographic-card">
-              <h3>Afghanistan (Gandhara Region)</h3>
-              <p class="card-subtitle">Vedic & Hindu-Buddhist Core to Complete Secular Shift</p>
-              <div class="bar-comparison-container">
-                <div class="bar-row">
-                  <span class="bar-label">Peak Era (c. 700 CE)</span>
-                  <div class="bar-progress-track">
-                    <div class="bar-progress-fill-gold" style="width: 100%;">100% Sanatan/Buddhist</div>
-                  </div>
-                </div>
-                <div class="bar-row">
-                  <span class="bar-label">Present Day</span>
-                  <div class="bar-progress-track">
-                    <div class="bar-progress-fill-red" style="width: 0.1%;">~0%</div>
-                  </div>
-                </div>
-              </div>
-              <p class="demographic-summary-text">Once ruled by the Hindu Shahi dynasty in Kabul, the entire region converted to Islam following Islamic conquests in the 9th-10th centuries, completely erasing the indigenous Vedic culture.</p>
-            </div>
-
-            <!-- Region 2: Pakistan (Indus Valley) -->
-            <div class="demographic-card">
-              <h3>Pakistan (Sindh & Punjab Core)</h3>
-              <p class="card-subtitle">Demographic Impact of the 1947 Partition</p>
-              <div class="bar-comparison-container">
-                <div class="bar-row">
-                  <span class="bar-label">Pre-Partition (1941)</span>
-                  <div class="bar-progress-track">
-                    <div class="bar-progress-fill-gold" style="width: 22%;">22% Hindu/Sikh</div>
-                  </div>
-                </div>
-                <div class="bar-row">
-                  <span class="bar-label">Present Day</span>
-                  <div class="bar-progress-track">
-                    <div class="bar-progress-fill-red" style="width: 1.8%;">1.8%</div>
-                  </div>
-                </div>
-              </div>
-              <p class="demographic-summary-text">The birthplace of the Rigveda (the land of the seven rivers) saw a total collapse in Hindu demographics during and after the 1947 Partition due to forced migrations, riots, and institutional conversions.</p>
-            </div>
-
-            <!-- Region 3: Bangladesh (East Bengal) -->
-            <div class="demographic-card">
-              <h3>Bangladesh (East Bengal)</h3>
-              <p class="card-subtitle">Long-term Post-Partition Decline</p>
-              <div class="bar-comparison-container">
-                <div class="bar-row">
-                  <span class="bar-label">Census 1941</span>
-                  <div class="bar-progress-track">
-                    <div class="bar-progress-fill-gold" style="width: 28%;">28% Hindu</div>
-                  </div>
-                </div>
-                <div class="bar-row">
-                  <span class="bar-label">Present Day</span>
-                  <div class="bar-progress-track">
-                    <div class="bar-progress-fill-red" style="width: 8.5%;">8.5%</div>
-                  </div>
-                </div>
-              </div>
-              <p class="demographic-summary-text">Following the 1947 Partition, the 1971 Liberation War atrocities, and ongoing social conversions, the Hindu demographic has steadily diminished to under a tenth of the nation's total population.</p>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </section>
-    <!-- Support & Donations Page -->
-    <section id="support-view" class="view-panel">
-      <div class="support-container-grid">
-        <!-- Left Column: Sacred Preservation Appeal -->
-        <div class="support-appeal-column glass-panel">
-          <div class="appeal-logo-mandala">ॐ</div>
-          <h2>Support Vedic Preservation</h2>
-          <p class="appeal-subtitle">Help keep the 3,500-Year Oral Vedic Heritage free & accessible to all</p>
-          <div class="appeal-divider"></div>
-          <p class="appeal-description">
-            The Vedas represent the oldest continuous oral tradition in human history, categorized as a UNESCO Masterpiece of the Oral and Intangible Heritage of Humanity. For millennia, this wisdom has been preserved through precise gurukul chanting systems (Shruti). We acknowledge and honor the traditional lineage of priests who have struggled hard to maintain this sacred Vedic knowledge and ensured it passes to the next generation.
-          </p>
-          <p class="appeal-description">
-            Your generous contributions directly support:
-          </p>
-          <ul class="appeal-features-list">
-            <li>
-              <span class="feat-icon">🕉️</span>
-              <div>
-                <strong>Gurukul Preservation:</strong> Supporting traditional Sanskrit teachers and oral recitations.
-              </div>
-            </li>
-            <li>
-              <span class="feat-icon">📖</span>
-              <div>
-                <strong>Manuscript Digitization:</strong> Converting ancient palm-leaf manuscripts into high-fidelity digital text.
-              </div>
-            </li>
-            <li>
-              <span class="feat-icon">🤖</span>
-              <div>
-                <strong>AI Semantic Search Engine:</strong> Funding computational hosting for advanced RAG indexing, phonetic cross-referencing, and grammar database maintenance.
-              </div>
-            </li>
-          </ul>
-          <div class="blessing-mantra-box">
-            <p class="sanskrit-chant">ॐ सह नाववतु। सह नौ भुनक्तु। सह वीर्यं करवावहै।</p>
-            <p class="sanskrit-translation">May we be protected together; may we be nourished together; may we work together with great energy.</p>
-          </div>
-        </div>
-
-        <!-- Right Column: Interactive Donation Form Panel -->
-        <div class="support-form-column glass-panel">
-          <div class="donation-card-header">
-            <h3>Make a Contribution</h3>
-            <p>Select amount and your preferred payment method</p>
-          </div>
-
-          <!-- Amount Selection Grid -->
-          <div class="amount-selection-wrapper">
-            <label class="form-section-label">Select Contribution Amount</label>
-            <div class="amount-presets-grid">
-              <button type="button" class="preset-btn active" data-amount="1">₹1</button>
-              <button type="button" class="preset-btn" data-amount="51">₹51</button>
-              <button type="button" class="preset-btn" data-amount="101">₹101</button>
-              <button type="button" class="preset-btn" data-amount="501">₹501</button>
-            </div>
-            <div class="custom-amount-input-box">
-              <span class="currency-symbol">₹</span>
-              <input type="number" id="custom-amount-val" placeholder="Or enter custom amount" min="1" max="1000000">
-            </div>
-          </div>
-
-          <!-- Payment Tabs (UPI / Card / Netbanking) -->
-          <div class="payment-tabs-container">
-            <div class="payment-tab-headers">
-              <button class="pay-tab-btn active" data-pay-method="upi">Scan UPI QR</button>
-              <button class="pay-tab-btn" data-pay-method="card">Card Payment</button>
-              <button class="pay-tab-btn" data-pay-method="banking">Net Banking</button>
-            </div>
-
-            <!-- Tab Content 1: UPI QR -->
-            <div class="pay-tab-content active" id="pay-content-upi">
-              <div class="upi-qr-display-box">
-                <div class="qr-pulse-ring">
-                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" data-src="images/qr_code.png" alt="UPI Donation QR Code" class="donation-qr-img">
-                </div>
-                <p class="qr-scan-instruction">Scan this QR Code using any UPI App (GPay, PhonePe, Paytm, BHIM)</p>
-                <div class="upi-id-copy-box">
-                  <span id="upi-id-text">vedaweb@upi</span>
-                  <button id="copy-upi-btn" class="mini-gold-btn">Copy ID</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Tab Content 2: Card Payment -->
-            <div class="pay-tab-content" id="pay-content-card">
-              <!-- Glassmorphic Credit Card Preview -->
-              <div class="credit-card-preview-wrapper">
-                <div class="cc-preview-card">
-                  <div class="cc-card-glass-shine"></div>
-                  <div class="cc-card-header">
-                    <span class="cc-chip"></span>
-                    <span class="cc-brand" id="cc-brand-logo">VISA</span>
-                  </div>
-                  <div class="cc-card-number" id="cc-preview-number">•••• •••• •••• ••••</div>
-                  <div class="cc-card-footer">
-                    <div class="cc-card-holder">
-                      <div class="cc-card-label">CARD HOLDER</div>
-                      <div class="cc-card-val-text" id="cc-preview-name">YOUR NAME HERE</div>
+                        <!-- Charcha Kijiye Box -->
+                        <div class="discussion-box pink-theme">
+                            <h3 class="box-title">🤔 चर्चा कीजिए (Let's Discuss)</h3>
+                            <p class="box-text">"वीर बनने का क्या अभिप्राय है?" (अपने मित्रों या माता-पिता से बात करें)</p>
+                        </div>
                     </div>
-                    <div class="cc-card-expiry">
-                      <div class="cc-card-label">EXPIRES</div>
-                      <div class="cc-card-val-text" id="cc-preview-expiry">MM/YY</div>
+
+                    <!-- Right: Poem Text & Reader Control -->
+                    <div class="poem-panel">
+                        <div class="poem-controls">
+                            <div class="instruction-bubble">
+                                👇 किसी भी पंक्ति या शब्द पर <strong>क्लिक करें</strong> और उच्चारण सुनें!
+                            </div>
+                            <div class="language-select">
+                                <label for="tts-speed">🔊 गति:</label>
+                                <select id="tts-speed">
+                                    <option value="0.7">धीमी (Slow)</option>
+                                    <option value="0.9" selected>सामान्य (Normal)</option>
+                                    <option value="1.1">तेज़ (Fast)</option>
+                                </select>
+                                <div id="voice-warning" style="display:none; color: #dc2626; font-size: 0.8rem; font-weight: bold; margin-top: 6px; text-align: right;">⚠️ हिंदी आवाज़ (Hindi Voice) नहीं मिली। अंग्रेज़ी का उपयोग हो रहा है। (Edge या Chrome में बेहतर काम करता है)</div>
+                            </div>
+                        </div>
+
+                        <div class="poem-body">
+                            <h2 class="poem-title">आगे बढ़ते जाओ हरदम</h2>
+                            
+                            <!-- Stanza 1 -->
+                            <div class="poem-stanza" data-stanza="1">
+                                <p class="poem-line" data-line="आगे बढ़ते जाओ हरदम,"><span class="word">आगे</span> <span class="word">बढ़ते</span> <span class="word">जाओ</span> <span class="word">हरदम</span>,</p>
+                                <p class="poem-line" data-line="बोलो बच्चों हिंद के हम,"><span class="word">बोलो</span> <span class="word">बच्चों</span> <span class="word">हिंद</span> <span class="word">के</span> <span class="word">हम</span>,</p>
+                                <p class="poem-line" data-line="पूछे तुमसे वीर कौन है?"><span class="word">पूछे</span> <span class="word">तुमसे</span> <span class="word">वीर</span> <span class="word">कौन</span> <span class="word">है</span>?</p>
+                                <p class="poem-line" data-line="कह दो फ़ौरन हम, हम, हम।"><span class="word">कह</span> <span class="word">दो</span> <span class="word">फ़ौरन</span> <span class="word">हम</span>, <span class="word">हम</span>, <span class="word">हम</span>।</p>
+                            </div>
+
+                            <!-- Stanza 2 -->
+                            <div class="poem-stanza" data-stanza="2">
+                                <p class="poem-line" data-line="राष्ट्र हमारा आज़ाद रहे,"><span class="word">राष्ट्र</span> <span class="word">हमारा</span> <span class="word">आज़ाद</span> <span class="word">रहे</span>,</p>
+                                <p class="poem-line" data-line="वीर सदा हम बने रहें,"><span class="word">वीर</span> <span class="word">सदा</span> <span class="word">हम</span> <span class="word">बने</span> <span class="word">रहें</span>,</p>
+                                <p class="poem-line" data-line="सच्चे दिल से काम करें,"><span class="word">सच्चे</span> <span class="word">दिल</span> <span class="word">से</span> <span class="word">काम</span> <span class="word">करें</span>,</p>
+                                <p class="poem-line" data-line="जय हिंद, जय हिंद गाते चलें।"><span class="word">जय</span> <span class="word">हिंद</span>, <span class="word">जय</span> <span class="word">हिंद</span> <span class="word">गाते</span> <span class="word">चलें</span>।</p>
+                            </div>
+
+                            <!-- Stanza 3 -->
+                            <div class="poem-stanza" data-stanza="3">
+                                <p class="poem-line" data-line="हिंसा को हम दूर भगाएँ,"><span class="word">हिंसा</span> <span class="word">को</span> <span class="word">हम</span> <span class="word">दूर</span> <span class="word">भगाएँ</span>,</p>
+                                <p class="poem-line" data-line="अहिंसा का पथ अपनाएँ,"><span class="word">अहिंसा</span> <span class="word">का</span> <span class="word">पथ</span> <span class="word">अपनाएँ</span>,</p>
+                                <p class="poem-line" data-line="मुश्किल कोई आ जाए तो,"><span class="word">मुश्किल</span> <span class="word">कोई</span> <span class="word">आ</span> <span class="word">जाए</span> <span class="word">तो</span>,</p>
+                                <p class="poem-line" data-line="हँसते-हँसते उसे सहें।"><span class="word">हँसते-हँसते</span> <span class="word">उसे</span> <span class="word">सहें</span>।</p>
+                            </div>
+
+                            <!-- Stanza 4 -->
+                            <div class="poem-stanza" data-stanza="4">
+                                <p class="poem-line" data-line="देश-प्रेम की खातिर हम सब,"><span class="word">देश-प्रेम</span> <span class="word">की</span> <span class="word">खातिर</span> <span class="word">हम</span> <span class="word">सब</span>,</p>
+                                <p class="poem-line" data-line="आगे-आगे बढ़ते जाएँ,"><span class="word">आगे-आगे</span> <span class="word">बढ़ते</span> <span class="word">जाएँ</span>,</p>
+                                <p class="poem-line" data-line="जय हिंद का नारा लगाकर,"><span class="word">जय</span> <span class="word">हिंद</span> <span class="word">का</span> <span class="word">नारा</span> <span class="word">लगाकर</span>,</p>
+                                <p class="poem-line" data-line="देश हित पर बलि-बलि जाएँ।"><span class="word">देश</span> <span class="word">हित</span> <span class="word">पर</span> <span class="word">बलि-बलि</span> <span class="word">जाएँ</span>।</p>
+                            </div>
+                            
+                            <p class="poem-author">- संकलित</p>
+                        </div>
+
+                        <!-- Word Meanings Grid (Interactive) -->
+                        <div class="meanings-panel">
+                            <h3 class="section-heading">📚 शब्दकोश (Click words to reveal meaning & audio)</h3>
+                            <div class="meanings-grid">
+                                <div class="meaning-card" data-word="हरदम" data-meaning="हमेशा / हर समय">
+                                    <strong>हरदम</strong>
+                                    <span class="meaning-val">हमेशा / हर समय</span>
+                                </div>
+                                <div class="meaning-card" data-word="हिंद" data-meaning="भारतवर्ष">
+                                    <strong>हिंद</strong>
+                                    <span class="meaning-val">भारतवर्ष</span>
+                                </div>
+                                <div class="meaning-card" data-word="राष्ट्र" data-meaning="देश">
+                                    <strong>राष्ट्र</strong>
+                                    <span class="meaning-val">देश</span>
+                                </div>
+                                <div class="meaning-card" data-word="हिंसा" data-meaning="लड़ाई-झगड़ा">
+                                    <strong>हिंसा</strong>
+                                    <span class="meaning-val">लड़ाई-झगड़ा</span>
+                                </div>
+                                <div class="meaning-card" data-word="अहिंसा" data-meaning="हिंसा न करना (शांति)">
+                                    <strong>अहिंसा</strong>
+                                    <span class="meaning-val">हिंसा न करना</span>
+                                </div>
+                                <div class="meaning-card" data-word="खातिर" data-meaning="के लिए">
+                                    <strong>खातिर</strong>
+                                    <span class="meaning-val">के लिए</span>
+                                </div>
+                                <div class="meaning-card" data-word="हित" data-meaning="लाभ / भलाई">
+                                    <strong>हित</strong>
+                                    <span class="meaning-val">लाभ / भलाई</span>
+                                </div>
+                                <div class="meaning-card" data-word="बलि-बलि जाना" data-meaning="निछावर होना / न्योछावर होना">
+                                    <strong>बलि-बलि जाना</strong>
+                                    <span class="meaning-val">निछावर होना</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
+            </section>
 
-              <!-- Card Input Fields Form -->
-              <div class="card-inputs-grid">
-                <div class="form-input-group">
-                  <label for="cc-input-name">Cardholder Name</label>
-                  <input type="text" id="cc-input-name" placeholder="Name on Card" maxlength="30">
-                </div>
-                <div class="form-input-group">
-                  <label for="cc-input-number">Card Number</label>
-                  <input type="text" id="cc-input-number" placeholder="4111 2222 3333 4444" maxlength="19">
-                </div>
-                <div class="form-row-double">
-                  <div class="form-input-group">
-                    <label for="cc-input-expiry">Expiration Date</label>
-                    <input type="text" id="cc-input-expiry" placeholder="MM/YY" maxlength="5">
-                  </div>
-                  <div class="form-input-group">
-                    <label for="cc-input-cvv">CVV</label>
-                    <input type="password" id="cc-input-cvv" placeholder="•••" maxlength="3">
-                  </div>
-                </div>
-              </div>
-            </div>
+            <!-- TAB 2: GAMIFIED VOCAB BUILDER -->
+            <section id="tab-vocab" class="tab-panel">
+                <div class="vocab-grid">
+                    <!-- Left: Antonym Prefix Matcher -->
+                    <div class="vocab-box">
+                        <div class="vocab-box-header green-theme">
+                            <h2>🧩 विलोम शब्द: 'अ' उपसर्ग मिलाएँ</h2>
+                            <p>अक्षर 'अ' को खींचें (Drag) और सही शब्द पर डालें ताकि उसका विपरीत (विलोम) शब्द बन सके!</p>
+                        </div>
+                        
+                        <div class="matcher-container">
+                            <!-- Draggable Prefix -->
+                            <div class="draggable-source-zone">
+                                <div class="prefix-capsule" draggable="true" id="prefix-a">अ</div>
+                                <span class="drag-hint">👆 मुझे पकड़ें (Drag Me!)</span>
+                            </div>
 
-            <!-- Tab Content 3: Net Banking -->
-            <div class="pay-tab-content" id="pay-content-banking">
-              <label class="form-section-label">Select Your Bank</label>
-              <div class="banks-dropdown-box">
-                <select id="bank-select-element">
-                  <option value="">-- Choose Bank --</option>
-                  <option value="sbi">State Bank of India</option>
-                  <option value="hdfc">HDFC Bank</option>
-                  <option value="icici">ICICI Bank</option>
-                  <option value="axis">Axis Bank</option>
-                  <option value="kotak">Kotak Mahindra Bank</option>
-                  <option value="pnb">Punjab National Bank</option>
-                </select>
-              </div>
-              <p class="banking-notice-text">You will be securely redirected to your bank's portal to authorize the transaction.</p>
-            </div>
-          </div>
-
-          <!-- Submit Button -->
-          <button type="button" id="submit-donation-btn" class="cta-btn gold-btn full-width-btn">Contribute ₹1 Securely</button>
-        </div>
-      </div>
-
-      <!-- Success celebration overlay -->
-      <div id="donation-success-overlay" class="donation-overlay-hidden">
-        <div class="success-card glass-panel">
-          <div class="success-checkmark-wrapper">
-            <span class="success-checkmark">ॐ</span>
-          </div>
-          <h2>Contribution Received!</h2>
-          <p class="success-blessing-text">May the divine wisdom of the Vedas guide your path.</p>
-          <div class="success-receipt-box">
-            <div class="receipt-row">
-              <span>Transaction ID:</span>
-              <strong id="receipt-tx-id">TXN-874293817</strong>
-            </div>
-            <div class="receipt-row">
-              <span>Amount Paid:</span>
-              <strong id="receipt-amount-val">₹251.00</strong>
-            </div>
-            <div class="receipt-row">
-              <span>Status:</span>
-              <strong class="receipt-status-success">SUCCESS</strong>
-            </div>
-          </div>
-          <button id="success-close-btn" class="cta-btn gold-btn">Return to Portal</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Online Academy & Subscription Page -->
-    <section id="subscribe-view" class="view-panel">
-      <div class="academy-layout">
-        <!-- Header Banner -->
-        <div class="academy-header glass-panel">
-          <span class="academy-badge">VEDIC ACADEMY</span>
-          <h1>Online Vedic Academy & Subscription</h1>
-          <p class="subtitle">Empowering present and future generations with the eternal chanting, grammar, and philosophy of the orthodox Sanskrit heritage. We dedicate this academy to the generations of priests who have struggled hard to maintain this sacred Vedic knowledge and ensured it passes to the next generation.</p>
-        </div>
-
-        <!-- Course Paths Grid -->
-        <div class="courses-section">
-          <h2>Academy Core Paths</h2>
-          <div class="courses-grid">
-            <div class="course-card glass-panel">
-              <div class="course-icon">🗣️</div>
-              <h3>Svara & Chanting</h3>
-              <p>Master the accents (Udatta, Anudatta, Svarita) and phonetic precision of Vedic recitation.</p>
-              <span class="course-level">All Levels Welcome</span>
-            </div>
-            <div class="course-card glass-panel">
-              <div class="course-icon">✍️</div>
-              <h3>Vedic Sanskrit Grammar</h3>
-              <p>Deconstruct root-meanings, lexical cases, and historical linguistic derivations (Nirukta).</p>
-              <span class="course-level">Intermediate</span>
-            </div>
-            <div class="course-card glass-panel">
-              <div class="course-icon">🧘</div>
-              <h3>Upanishad Philosophy</h3>
-              <p>Deep dive into the metaphysics of non-duality (Advaita), consciousness, and liberation.</p>
-              <span class="course-level">Advanced Study</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Subscription Pricing Tiers -->
-        <div class="pricing-section">
-          <h2>Select Your Educational Path</h2>
-          <div class="pricing-grid">
-            <!-- Tier 1 -->
-            <div class="pricing-card glass-panel" id="tier-bal">
-              <div class="pricing-header">
-                <h3>Bal Gurukul</h3>
-                <p class="tier-desc">Designed for kids & teens to learn heritage basics.</p>
-                <div class="tier-price">₹299<span class="price-period">/mo</span></div>
-              </div>
-              <div class="tier-features">
-                <ul>
-                  <li>✨ Simple Chants & Moral Tales</li>
-                  <li>✨ Weekly Chanting Cohorts</li>
-                  <li>✨ Basic Sanskrit Alphabet</li>
-                  <li>✨ Interactive Audio Flashcards</li>
-                </ul>
-              </div>
-              <button class="cta-btn outline-btn pricing-select-btn" data-tier="bal" data-price="299" data-name="Bal Gurukul">Enroll Now ➔</button>
-            </div>
-
-            <!-- Tier 2 (Popular) -->
-            <div class="pricing-card glass-panel popular-tier" id="tier-vidyarthi">
-              <div class="popular-badge">MOST POPULAR</div>
-              <div class="pricing-header">
-                <h3>Vedic Vidyārthī</h3>
-                <p class="tier-desc">Complete core study path for dedicated learners.</p>
-                <div class="tier-price">₹599<span class="price-period">/mo</span></div>
-              </div>
-              <div class="tier-features">
-                <ul>
-                  <li>🕉️ Daily Live Recitation Rooms</li>
-                  <li>🕉️ Grammar & root analysis database</li>
-                  <li>🕉️ 4-Veda structural maps</li>
-                  <li>🕉️ Interactive seers workshops</li>
-                </ul>
-              </div>
-              <button class="cta-btn gold-btn pricing-select-btn" data-tier="vidyarthi" data-price="599" data-name="Vedic Vidyārthī">Enroll Now ➔</button>
-            </div>
-
-            <!-- Tier 3 -->
-            <div class="pricing-card glass-panel" id="tier-acharya">
-              <div class="pricing-header">
-                <h3>Achārya Fellow</h3>
-                <p class="tier-desc">For advanced research and deep mentorship support.</p>
-                <div class="tier-price">₹1,199<span class="price-period">/mo</span></div>
-              </div>
-              <div class="tier-features">
-                <ul>
-                  <li>🎓 1-on-1 Mentor guidance sessions</li>
-                  <li>🎓 Manuscript translation workshops</li>
-                  <li>🎓 RAG AI Search unlimited queries</li>
-                  <li>🎓 Printed Vedic study booklets</li>
-                </ul>
-              </div>
-              <button class="cta-btn outline-btn pricing-select-btn" data-tier="acharya" data-price="1199" data-name="Achārya Fellow">Enroll Now ➔</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Academy Enrollment Form & Success Certificate Container -->
-        <div class="enrollment-container" style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; align-items: stretch; margin-top: 2rem;">
-          
-          <!-- Academy Enrollment Form (Appears when tier selected) -->
-          <div class="academy-enrollment-panel glass-panel hidden" id="enrollment-panel" style="flex: 1; min-width: 350px; max-width: 550px; margin: 0;">
-          <div class="enrollment-header">
-            <h3>Complete Your Enrollment</h3>
-            <p>You have selected: <strong id="selected-tier-name">Vedic Vidyārthī</strong> (<strong id="selected-tier-price">₹599/mo</strong>)</p>
-          </div>
-          <form id="enrollment-form" class="enroll-form">
-            <div class="form-row-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.2rem; width: 100%;">
-              <div class="form-group" style="display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-start; width: 100%;">
-                <label for="enroll-name" style="font-size: 0.85rem; font-weight: 600; color: var(--color-text-muted);">Full Name</label>
-                <input type="text" id="enroll-name" required placeholder="Enter student name..." style="width: 100%; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 0.75rem 1rem; color: #fff; font-size: 0.95rem; box-sizing: border-box;">
-              </div>
-              <div class="form-group" style="display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-start; width: 100%;">
-                <label for="enroll-email" style="font-size: 0.85rem; font-weight: 600; color: var(--color-text-muted);">Email Address</label>
-                <input type="email" id="enroll-email" required placeholder="Enter email address..." style="width: 100%; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 0.75rem 1rem; color: #fff; font-size: 0.95rem; box-sizing: border-box;">
-              </div>
-            </div>
-
-            <!-- Integrated Subscription Payment Gateways -->
-            <div class="payment-gateway-section">
-              <label class="form-section-label">Select Payment Method</label>
-              <div class="gateway-tabs">
-                <button type="button" class="gateway-tab-btn active" data-paymethod="upi">Scan UPI QR</button>
-                <button type="button" class="gateway-tab-btn" data-paymethod="card">Card Payment</button>
-              </div>
-
-              <!-- UPI payment content -->
-              <div class="gateway-content active" id="enroll-pay-upi">
-                <div class="upi-pay-wrapper">
-                  <div class="qr-container-glowing">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" data-src="images/qr_code.png" alt="Subscription QR">
-                  </div>
-                  <div class="upi-text-info">
-                    <p>Scan the QR code to subscribe to this plan.</p>
-                    <p class="upi-address">UPI ID: <strong>academy@okaxis</strong></p>
-                    <button type="button" class="mini-gold-btn copy-upi-btn" onclick="navigator.clipboard.writeText('academy@okaxis'); alert('UPI Address copied!');">Copy UPI ID 📋</button>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Card Payment Content -->
-              <div class="gateway-content" id="enroll-pay-card">
-                <div class="card-checkout-grid">
-                  <!-- Glass Card Preview -->
-                  <div class="glass-cc-preview">
-                    <div class="cc-preview-chip"></div>
-                    <div class="cc-preview-logo" id="enroll-card-brand-logo">VISA</div>
-                    <div class="cc-preview-number" id="enroll-card-num-preview">•••• •••• •••• ••••</div>
-                    <div class="cc-preview-bottom">
-                      <div class="cc-preview-name">
-                        <label>CARDHOLDER</label>
-                        <div id="enroll-card-name-preview">STUDENT NAME</div>
-                      </div>
-                      <div class="cc-preview-expiry">
-                        <label>EXPIRES</label>
-                        <div id="enroll-card-expiry-preview">MM/YY</div>
-                      </div>
+                            <!-- Target Boxes -->
+                            <div class="targets-grid">
+                                <div class="target-card" data-base="हिंसा" data-correct="अहिंसा">
+                                    <div class="drop-zone" id="drop-himsa"></div>
+                                    <span class="base-word">हिंसा</span>
+                                    <span class="arrow">➡️</span>
+                                    <span class="result-word">?</span>
+                                </div>
+                                <div class="target-card" data-base="हित" data-correct="अहित">
+                                    <div class="drop-zone" id="drop-hit"></div>
+                                    <span class="base-word">हित</span>
+                                    <span class="arrow">➡️</span>
+                                    <span class="result-word">?</span>
+                                </div>
+                                <div class="target-card" data-base="योग्य" data-correct="अयोग्य">
+                                    <div class="drop-zone" id="drop-yogya"></div>
+                                    <span class="base-word">योग्य</span>
+                                    <span class="arrow">➡️</span>
+                                    <span class="result-word">?</span>
+                                </div>
+                                <div class="target-card" data-base="न्याय" data-correct="अन्याय">
+                                    <div class="drop-zone" id="drop-nyaya"></div>
+                                    <span class="base-word">न्याय</span>
+                                    <span class="arrow">➡️</span>
+                                    <span class="result-word">?</span>
+                                </div>
+                                <div class="target-card" data-base="मंगल" data-correct="अमंगल">
+                                    <div class="drop-zone" id="drop-mangal"></div>
+                                    <span class="base-word">मंगल</span>
+                                    <span class="arrow">➡️</span>
+                                    <span class="result-word">?</span>
+                                </div>
+                                <div class="target-card" data-base="स्वस्थ" data-correct="अस्वस्थ">
+                                    <div class="drop-zone" id="drop-swasth"></div>
+                                    <span class="base-word">स्वस्थ</span>
+                                    <span class="arrow">➡️</span>
+                                    <span class="result-word">?</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="reset-btn" id="reset-drag-game">🔄 दोबारा खेलें</button>
                     </div>
-                  </div>
 
-                  <!-- Card Fields -->
-                  <div class="card-inputs-form" style="width: 100%;">
-                    <div class="form-group" style="display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-start; width: 100%; margin-bottom: 1.2rem;">
-                      <label for="enroll-card-num" style="font-size: 0.85rem; font-weight: 600; color: var(--color-text-muted);">Card Number</label>
-                      <input type="text" id="enroll-card-num" maxlength="19" placeholder="4111 2222 3333 4444" style="width: 100%; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 0.75rem 1rem; color: #fff; font-size: 0.95rem; box-sizing: border-box;">
+                    <!-- Right: Synonym Finder MCQ Trivia -->
+                    <div class="vocab-box">
+                        <div class="vocab-box-header orange-theme">
+                            <h2>💡 पर्यायवाची शब्द (सही अर्थ पहचानें)</h2>
+                            <p>दिए गए शब्द के सही अर्थ/समानार्थी शब्द पर निशान (✓) लगाइए!</p>
+                        </div>
+                        
+                        <div class="synonym-cards-list">
+                            <!-- Card 1 -->
+                            <div class="synonym-mcq-card" data-word="पथ">
+                                <div class="mcq-question"><strong>पथ</strong> का सही अर्थ क्या है?</div>
+                                <div class="mcq-options">
+                                    <button class="option-btn" data-correct="true">रास्ता</button>
+                                    <button class="option-btn" data-correct="false">न्याय</button>
+                                    <button class="option-btn" data-correct="false">भलाई</button>
+                                </div>
+                                <div class="feedback-msg"></div>
+                            </div>
+
+                            <!-- Card 2 -->
+                            <div class="synonym-mcq-card" data-word="मुश्किल">
+                                <div class="mcq-question"><strong>मुश्किल</strong> का सही अर्थ क्या है?</div>
+                                <div class="mcq-options">
+                                    <button class="option-btn" data-correct="false">सरल</button>
+                                    <button class="option-btn" data-correct="true">कठिनाई</button>
+                                    <button class="option-btn" data-correct="false">आसान</button>
+                                </div>
+                                <div class="feedback-msg"></div>
+                            </div>
+
+                            <!-- Card 3 -->
+                            <div class="synonym-mcq-card" data-word="वीर">
+                                <div class="mcq-question"><strong>वीर</strong> का सही अर्थ क्या है?</div>
+                                <div class="mcq-options">
+                                    <button class="option-btn" data-correct="false">साहस</button>
+                                    <button class="option-btn" data-correct="false">मित्र</button>
+                                    <button class="option-btn" data-correct="true">बहादुर</button>
+                                </div>
+                                <div class="feedback-msg"></div>
+                            </div>
+
+                            <!-- Card 4 -->
+                            <div class="synonym-mcq-card" data-word="हित">
+                                <div class="mcq-question"><strong>हित</strong> का सही अर्थ क्या है?</div>
+                                <div class="mcq-options">
+                                    <button class="option-btn" data-correct="true">भलाई</button>
+                                    <button class="option-btn" data-correct="false">रास्ता</button>
+                                    <button class="option-btn" data-correct="false">हिंसा</button>
+                                </div>
+                                <div class="feedback-msg"></div>
+                            </div>
+
+                            <!-- Card 5 -->
+                            <div class="synonym-mcq-card" data-word="हिंसा">
+                                <div class="mcq-question"><strong>हिंसा</strong> का सही अर्थ क्या है?</div>
+                                <div class="mcq-options">
+                                    <button class="option-btn" data-correct="false">अहिंसा</button>
+                                    <button class="option-btn" data-correct="true">लड़ाई-झगड़ा</button>
+                                    <button class="option-btn" data-correct="false">साहसी</button>
+                                </div>
+                                <div class="feedback-msg"></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-row-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.2rem; width: 100%;">
-                      <div class="form-group" style="display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-start; width: 100%;">
-                        <label for="enroll-card-expiry" style="font-size: 0.85rem; font-weight: 600; color: var(--color-text-muted);">Expiry Date</label>
-                        <input type="text" id="enroll-card-expiry" maxlength="5" placeholder="MM/YY" style="width: 100%; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 0.75rem 1rem; color: #fff; font-size: 0.95rem; box-sizing: border-box;">
-                      </div>
-                      <div class="form-group" style="display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-start; width: 100%;">
-                        <label for="enroll-card-cvv" style="font-size: 0.85rem; font-weight: 600; color: var(--color-text-muted);">CVV</label>
-                        <input type="password" id="enroll-card-cvv" maxlength="3" placeholder="•••" style="width: 100%; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 0.75rem 1rem; color: #fff; font-size: 0.95rem; box-sizing: border-box;">
-                      </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: INTERACTIVE QUIZ (Q&A AND BLANKS) -->
+            <section id="tab-quiz" class="tab-panel">
+                <div class="quiz-grid">
+                    <!-- Left: Oral Questions (Maukhik) -->
+                    <div class="quiz-column purple-theme">
+                        <div class="column-header">
+                            <h2>🎤 मौखिक प्रश्न (Oral Quiz)</h2>
+                            <p>प्रश्न सुनें, माइक दबाकर उत्तर दें या लिख कर सबमिट करें!</p>
+                        </div>
+                        
+                        <div class="oral-quiz-widget">
+                            <!-- Progress Dots -->
+                            <div class="quiz-progress" id="oral-progress">
+                                <span class="dot active"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+
+                            <!-- Question Card Container -->
+                            <div class="quiz-card-container">
+                                <!-- Card 1 -->
+                                <div class="quiz-card active" data-q="0" data-correct-keys="हम,बच्चे,बालक,स्वयं को">
+                                    <div class="quiz-question-number">प्रश्न (क)</div>
+                                    <h3 class="quiz-question-text">वीर कौन हैं?</h3>
+                                    <div class="input-section">
+                                        <input type="text" class="quiz-text-input" placeholder="उत्तर यहाँ लिखें...">
+                                        <button class="mic-btn" title="बोलकर उत्तर दें">🎙️ बोलें</button>
+                                    </div>
+                                    <div class="stt-status">माइक बंद है</div>
+                                    <button class="submit-answer-btn">उत्तर जाँचे (Check Answer)</button>
+                                    <div class="quiz-feedback"></div>
+                                </div>
+
+                                <!-- Card 2 -->
+                                <div class="quiz-card" data-q="1" data-correct-keys="अहिंसा,अहिंसा का,अहिंसा पथ">
+                                    <div class="quiz-question-number">प्रश्न (ख)</div>
+                                    <h3 class="quiz-question-text">कविता में कौन-सा पथ अपनाने के लिए कहा गया है?</h3>
+                                    <div class="input-section">
+                                        <input type="text" class="quiz-text-input" placeholder="उत्तर यहाँ लिखें...">
+                                        <button class="mic-btn" title="बोलकर उत्तर दें">🎙️ बोलें</button>
+                                    </div>
+                                    <div class="stt-status">माइक बंद है</div>
+                                    <button class="submit-answer-btn">उत्तर जाँचे (Check Answer)</button>
+                                    <div class="quiz-feedback"></div>
+                                </div>
+
+                                <!-- Card 3 -->
+                                <div class="quiz-card" data-q="2" data-correct-keys="जय हिंद,जयहिंद,जय हिंद का नारा,जयहिंद का">
+                                    <div class="quiz-question-number">प्रश्न (ग)</div>
+                                    <h3 class="quiz-question-text">देशहित पर बलिदान देने के लिए कौन-सा नारा लगाना है?</h3>
+                                    <div class="input-section">
+                                        <input type="text" class="quiz-text-input" placeholder="उत्तर यहाँ लिखें...">
+                                        <button class="mic-btn" title="बोलकर उत्तर दें">🎙️ बोलें</button>
+                                    </div>
+                                    <div class="stt-status">माइक बंद है</div>
+                                    <button class="submit-answer-btn">उत्तर जाँचे (Check Answer)</button>
+                                    <div class="quiz-feedback"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="navigation-controls">
+                                <button class="nav-control-btn" id="prev-oral" disabled>⬅️ पिछला</button>
+                                <button class="nav-control-btn" id="next-oral">अगला ➡️</button>
+                            </div>
+                        </div>
                     </div>
-                  </div>
+
+                    <!-- Right: Fill in the Blanks Poetry Puzzle -->
+                    <div class="quiz-column blue-theme">
+                        <div class="column-header">
+                            <h2>✍️ कविता पूरी करें (Fill in the Blanks)</h2>
+                            <p>नीचे दी गई पंक्तियों में सही स्थान पर उपयुक्त शब्द भरें और कविता पूरी करें!</p>
+                        </div>
+                        
+                        <div class="poetry-completion-widget">
+                            <!-- Drag Words Pool -->
+                            <div class="words-pool" id="poetry-words-pool">
+                                <div class="pool-word-card" draggable="true" id="word-himsa">हिंसा</div>
+                                <div class="pool-word-card" draggable="true" id="word-path">पथ</div>
+                                <div class="pool-word-card" draggable="true" id="word-mushkil">मुश्किल</div>
+                                <div class="pool-word-card" draggable="true" id="word-sahen">सहें</div>
+                            </div>
+
+                            <!-- Stanza Grid -->
+                            <div class="completion-stanza">
+                                <div class="completion-line">
+                                    <span class="line-part">1.</span>
+                                    <div class="word-drop-slot" data-expected="हिंसा" id="slot-1"></div>
+                                    <span class="line-text">को हम दूर भगाएँ,</span>
+                                </div>
+                                <div class="completion-line">
+                                    <span class="line-part">2. अहिंसा का</span>
+                                    <div class="word-drop-slot" data-expected="पथ" id="slot-2"></div>
+                                    <span class="line-text">अपनाएँ,</span>
+                                </div>
+                                <div class="completion-line">
+                                    <span class="line-part">3.</span>
+                                    <div class="word-drop-slot" data-expected="मुश्किल" id="slot-3"></div>
+                                    <span class="line-text">कोई आ जाए तो,</span>
+                                </div>
+                                <div class="completion-line">
+                                    <span class="line-part">4. हँसते-हँसते उसे</span>
+                                    <div class="word-drop-slot" data-expected="सहें" id="slot-4"></div>
+                                    <span class="line-text">।</span>
+                                </div>
+                            </div>
+
+                            <button class="check-poetry-btn" id="verify-poetry-btn">सत्यापित करें (Verify)</button>
+                            <button class="reset-btn" id="reset-poetry-btn">🔄 दोबारा खेलें</button>
+                            <div id="poetry-completion-feedback"></div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
+            </section>
 
-            <!-- Submit enrollment button -->
-            <button type="submit" class="cta-btn gold-btn submit-enrollment-btn" id="enroll-submit-btn">Authorize Subscription of ₹599/mo</button>
-          </form>
-        </div>
+            <!-- TAB 4: SENTENCE MAKER SANDBOX -->
+            <section id="tab-sandbox" class="tab-panel">
+                <div class="sandbox-container">
+                    <div class="sandbox-header">
+                        <h2>🎨 वाक्य बनाओ: रचनात्मक कोना (Sentence Maker Sandbox)</h2>
+                        <p>दिए गए पाँच शब्दों के अर्थ लिखें और उनसे एक मौलिक वाक्य बनाकर अपने तारे (Stars) कमाएँ!</p>
+                    </div>
 
-        <!-- Enrollment Success Modal (Admission Certificate overlay) -->
-        <div class="modal-overlay" id="academy-success-overlay" style="position: relative; flex: 1; min-width: 350px; max-width: 550px; background: none; z-index: 1; display: flex; align-items: center; justify-content: center; padding: 0;">
-          <div class="success-receipt-card admission-certificate glass-panel">
-            <div class="certificate-border">
-              <div class="mandala-watermark">ॐ</div>
-              <span class="cert-title">ADMISSION CERTIFICATE</span>
-              <span class="cert-subtitle">Vedic Academy of Intangible Heritage</span>
-              <div class="cert-divider"></div>
-              <p class="cert-body">This is to certify that</p>
-              <h2 id="cert-student-name" class="cert-student-name">Mandar Kurdekar</h2>
-              <p class="cert-body">has successfully enrolled as a student of the path</p>
-              <h3 id="cert-tier-name" class="cert-tier-name">Vedic Vidyārthī</h3>
-              <p class="cert-body">to learn, preserve, and transmit the eternal light of Vedic wisdom.</p>
-              <div class="cert-divider"></div>
-              <div class="cert-footer-grid">
-                <div class="cert-footer-col">
-                  <span class="label">REGISTRATION ID</span>
-                  <strong id="cert-reg-id">VA-8938210</strong>
+                    <div class="sandbox-body">
+                        <!-- Sandbox Item 1 -->
+                        <div class="sandbox-card" data-word="हिंद" data-expected-meaning="भारत / भारतवर्ष">
+                            <div class="sandbox-badge">
+                                <span class="badge-status">🔒</span>
+                            </div>
+                            <div class="sandbox-word-detail">
+                                <div class="word-title">
+                                    शब्द १: <strong class="highlight-word">हिंद</strong>
+                                    <button class="play-word-btn" data-word="हिंद" title="शब्द का उच्चारण सुनें">🔊 सुनें</button>
+                                </div>
+                                <div class="sandbox-input-group">
+                                    <label>शब्द का अर्थ:</label>
+                                    <input type="text" class="meaning-input" placeholder="अर्थ यहाँ लिखें... (जैसे: भारत)">
+                                    <button class="sandbox-mic-btn meaning-mic" title="बोलकर अर्थ बताएं">🎙️ बोलें</button>
+                                </div>
+                                <div class="sandbox-input-group">
+                                    <label>आपका वाक्य:</label>
+                                    <textarea class="sentence-input" placeholder="एक प्यारा वाक्य बनाएँ... (जैसे: हम हिंद के वासी हैं)"></textarea>
+                                    <button class="sandbox-mic-btn sentence-mic" title="बोलकर वाक्य बनाएं">🎙️ बोलें</button>
+                                </div>
+                                <button class="verify-sandbox-btn">जमा करें (Submit)</button>
+                                <div class="sandbox-feedback-msg"></div>
+                            </div>
+                        </div>
+
+                        <!-- Sandbox Item 2 -->
+                        <div class="sandbox-card" data-word="वीर" data-expected-meaning="बहादुर">
+                            <div class="sandbox-badge">
+                                <span class="badge-status">🔒</span>
+                            </div>
+                            <div class="sandbox-word-detail">
+                                <div class="word-title">
+                                    शब्द २: <strong class="highlight-word">वीर</strong>
+                                    <button class="play-word-btn" data-word="वीर" title="शब्द का उच्चारण सुनें">🔊 सुनें</button>
+                                </div>
+                                <div class="sandbox-input-group">
+                                    <label>शब्द का अर्थ:</label>
+                                    <input type="text" class="meaning-input" placeholder="अर्थ यहाँ लिखें... (जैसे: बहादुर)">
+                                    <button class="sandbox-mic-btn meaning-mic" title="बोलकर अर्थ बताएं">🎙️ बोलें</button>
+                                </div>
+                                <div class="sandbox-input-group">
+                                    <label>आपका वाक्य:</label>
+                                    <textarea class="sentence-input" placeholder="एक प्यारा वाक्य बनाएँ... (जैसे: शिवाजी एक वीर राजा थे)"></textarea>
+                                    <button class="sandbox-mic-btn sentence-mic" title="बोलकर वाक्य बनाएं">🎙️ बोलें</button>
+                                </div>
+                                <button class="verify-sandbox-btn">जमा करें (Submit)</button>
+                                <div class="sandbox-feedback-msg"></div>
+                            </div>
+                        </div>
+
+                        <!-- Sandbox Item 3 -->
+                        <div class="sandbox-card" data-word="देश" data-expected-meaning="राष्ट्र">
+                            <div class="sandbox-badge">
+                                <span class="badge-status">🔒</span>
+                            </div>
+                            <div class="sandbox-word-detail">
+                                <div class="word-title">
+                                    शब्द ३: <strong class="highlight-word">देश</strong>
+                                    <button class="play-word-btn" data-word="देश" title="शब्द का उच्चारण सुनें">🔊 सुनें</button>
+                                </div>
+                                <div class="sandbox-input-group">
+                                    <label>शब्द का अर्थ:</label>
+                                    <input type="text" class="meaning-input" placeholder="अर्थ यहाँ लिखें... (जैसे: राष्ट्र)">
+                                    <button class="sandbox-mic-btn meaning-mic" title="बोलकर अर्थ बताएं">🎙️ बोलें</button>
+                                </div>
+                                <div class="sandbox-input-group">
+                                    <label>आपका वाक्य:</label>
+                                    <textarea class="sentence-input" placeholder="एक प्यारा वाक्य बनाएँ... (जैसे: हमारे देश का नाम भारत है)"></textarea>
+                                    <button class="sandbox-mic-btn sentence-mic" title="बोलकर वाक्य बनाएं">🎙️ बोलें</button>
+                                </div>
+                                <button class="verify-sandbox-btn">जमा करें (Submit)</button>
+                                <div class="sandbox-feedback-msg"></div>
+                            </div>
+                        </div>
+
+                        <!-- Sandbox Item 4 -->
+                        <div class="sandbox-card" data-word="आज़ाद" data-expected-meaning="स्वतंत्र">
+                            <div class="sandbox-badge">
+                                <span class="badge-status">🔒</span>
+                            </div>
+                            <div class="sandbox-word-detail">
+                                <div class="word-title">
+                                    शब्द ४: <strong class="highlight-word">आज़ाद</strong>
+                                    <button class="play-word-btn" data-word="आज़ाद" title="शब्द का उच्चारण सुनें">🔊 सुनें</button>
+                                </div>
+                                <div class="sandbox-input-group">
+                                    <label>शब्द का अर्थ:</label>
+                                    <input type="text" class="meaning-input" placeholder="अर्थ यहाँ लिखें... (जैसे: स्वतंत्र)">
+                                    <button class="sandbox-mic-btn meaning-mic" title="बोलकर अर्थ बताएं">🎙️ बोलें</button>
+                                </div>
+                                <div class="sandbox-input-group">
+                                    <label>आपका वाक्य:</label>
+                                    <textarea class="sentence-input" placeholder="एक प्यारा वाक्य बनाएँ... (जैसे: हमारा देश १५ अगस्त को आज़ाद हुआ था)"></textarea>
+                                    <button class="sandbox-mic-btn sentence-mic" title="बोलकर वाक्य बनाएं">🎙️ बोलें</button>
+                                </div>
+                                <button class="verify-sandbox-btn">जमा करें (Submit)</button>
+                                <div class="sandbox-feedback-msg"></div>
+                            </div>
+                        </div>
+
+                        <!-- Sandbox Item 5 -->
+                        <div class="sandbox-card" data-word="अहिंसा" data-expected-meaning="हिंसा न करना">
+                            <div class="sandbox-badge">
+                                <span class="badge-status">🔒</span>
+                            </div>
+                            <div class="sandbox-word-detail">
+                                <div class="word-title">
+                                    शब्द ५: <strong class="highlight-word">अहिंसा</strong>
+                                    <button class="play-word-btn" data-word="अहिंसा" title="शब्द का उच्चारण सुनें">🔊 सुनें</button>
+                                </div>
+                                <div class="sandbox-input-group">
+                                    <label>शब्द का अर्थ:</label>
+                                    <input type="text" class="meaning-input" placeholder="अर्थ यहाँ लिखें... (जैसे: हिंसा न करना)">
+                                    <button class="sandbox-mic-btn meaning-mic" title="बोलकर अर्थ बताएं">🎙️ बोलें</button>
+                                </div>
+                                <div class="sandbox-input-group">
+                                    <label>आपका वाक्य:</label>
+                                    <textarea class="sentence-input" placeholder="एक प्यारा वाक्य बनाएँ... (जैसे: हमें अहिंसा का मार्ग अपनाना चाहिए)"></textarea>
+                                    <button class="sandbox-mic-btn sentence-mic" title="बोलकर वाक्य बनाएं">🎙️ बोलें</button>
+                                </div>
+                                <button class="verify-sandbox-btn">जमा करें (Submit)</button>
+                                <div class="sandbox-feedback-msg"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="cert-footer-col">
-                  <span class="label">DATE OF ENROLLMENT</span>
-                  <strong id="cert-date">July 1, 2026</strong>
-                </div>
-              </div>
-            </div>
-            <div class="cert-buttons-row" style="display: flex; gap: 1rem; width: 100%; margin-top: 1.5rem;">
-              <button id="cert-close-btn" class="cta-btn gold-btn cert-return-btn" style="flex: 1; margin: 0;">Enter Vedic Academy</button>
-              <button id="cert-home-btn" class="cta-btn outline-btn" style="flex: 1; margin: 0; background: transparent; color: var(--color-gold); border: 1px solid var(--color-gold);">🏠 Go Back to Home</button>
-            </div>
-          </div>
-        </div>
-        
-        </div> <!-- End of enrollment-container -->
-      </div>
-    </section>
+            </section>
+        </main>
 
-    <!-- View X: Residential Gurukuls -->
-    <section id="gurukul-stays-view" class="view-panel">
-      <div class="welcome-card glass-panel" style="text-align: center; padding: 40px; margin-bottom: 20px;">
-        <h2>Residential Gurukul Programs</h2>
-        <p style="margin-top: 15px; font-size: 1.1em; color: var(--color-text-muted);">
-          Experience the traditional Guru-Shishya parampara by immersing yourself in these authentic residential programs designed for adult seekers.
-        </p>
-      </div>
-
-      <div class="courses-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
-        <!-- Gurukul 1 -->
-        <div class="course-card glass-panel" style="display: flex; flex-direction: column; overflow: hidden; padding: 0; border: 1px solid rgba(212, 175, 55, 0.2);">
-          <img src="images/gurukul_arsha.png" alt="Arsha Vidya Gurukulam" style="width: 100%; height: 200px; object-fit: cover; border-bottom: 2px solid var(--color-gold);">
-          <div style="padding: 20px;">
-            <h3 style="color: var(--color-gold); margin-bottom: 10px; font-size: 1.3em;">Arsha Vidya Gurukulam</h3>
-            <p><strong>Location:</strong> Anaikatti, Coimbatore</p>
-            <p style="margin: 15px 0; font-size: 0.95em; line-height: 1.5; color: #ddd;">Founded by Pujya Sri Swami Dayananda Saraswati. Offers immersive short and long-term retreats focused on Advaita Vedanta, Sanskrit, and Vedic chanting in a traditional setting.</p>
-            <p><strong>Website:</strong> <a href="https://arshavidya.in" target="_blank" style="color: var(--color-gold); text-decoration: none;">arshavidya.in</a></p>
-            <p><strong>Contact:</strong> office@arshavidya.in</p>
-          </div>
-        </div>
-
-        <!-- Gurukul 2 -->
-        <div class="course-card glass-panel" style="display: flex; flex-direction: column; overflow: hidden; padding: 0; border: 1px solid rgba(212, 175, 55, 0.2);">
-          <img src="images/gurukul_chinmaya.png" alt="Chinmaya International Foundation" style="width: 100%; height: 200px; object-fit: cover; border-bottom: 2px solid var(--color-gold);">
-          <div style="padding: 20px;">
-            <h3 style="color: var(--color-gold); margin-bottom: 10px; font-size: 1.3em;">Chinmaya Int. Foundation</h3>
-            <p><strong>Location:</strong> Veliyanad, Kerala</p>
-            <p style="margin: 15px 0; font-size: 0.95em; line-height: 1.5; color: #ddd;">Located at the maternal birth home of Adi Shankaracharya, CIF offers rigorous Vedanta Sadhaka courses tailored for deep scriptural and philosophical study.</p>
-            <p><strong>Website:</strong> <a href="https://chinfo.org" target="_blank" style="color: var(--color-gold); text-decoration: none;">chinfo.org</a></p>
-            <p><strong>Contact:</strong> welcometocif@chinfo.org</p>
-          </div>
-        </div>
-
-        <!-- Gurukul 3 -->
-        <div class="course-card glass-panel" style="display: flex; flex-direction: column; overflow: hidden; padding: 0; border: 1px solid rgba(212, 175, 55, 0.2);">
-          <img src="images/gurukul_veda.png" alt="Veda Gurukulam" style="width: 100%; height: 200px; object-fit: cover; border-bottom: 2px solid var(--color-gold);">
-          <div style="padding: 20px;">
-            <h3 style="color: var(--color-gold); margin-bottom: 10px; font-size: 1.3em;">Veda Gurukulam</h3>
-            <p><strong>Location:</strong> Karalmanna, Kerala</p>
-            <p style="margin: 15px 0; font-size: 0.95em; line-height: 1.5; color: #ddd;">An authentic Gurukul dedicated to the study of the Vedas and Vedangas. They provide immersive programs focused on chanting, grammar, and traditional rituals.</p>
-            <p><strong>Website:</strong> <a href="https://vedagurukulam.org" target="_blank" style="color: var(--color-gold); text-decoration: none;">vedagurukulam.org</a></p>
-            <p><strong>Contact:</strong> info@vedagurukulam.org</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Fire Embers Canvas -->
-  <canvas id="fire-canvas"></canvas>
-
-  <!-- Interactive Tooltip Card for Lexicon Hovering -->
-  <div id="lexicon-tooltip" class="tooltip-card">
-    <div class="tooltip-arrow"></div>
-    <div class="tooltip-content">
-      <h4 id="tooltip-word">Word</h4>
-      <p class="tooltip-meaning"><strong class="tooltip-meta-label">Meaning:</strong> <span id="tooltip-meaning-text">Loading...</span></p>
-      <p class="tooltip-grammar"><strong class="tooltip-meta-label">Grammar:</strong> <span id="tooltip-grammar-text">Loading...</span></p>
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>© बाल हिंदी वाटिका - हिंदी सीखें मजे के साथ!</p>
+        </footer>
     </div>
-  </div>
 
-  <!-- Floating 3D AI Avatar Assistance Widget -->
-  <div class="ai-avatar-widget" id="ai-avatar-widget">
-    <div class="ai-avatar-speech-bubble hidden" id="ai-avatar-bubble">
-      <div class="bubble-header">
-        <span class="avatar-title">ॐ Vedic Sage AI</span>
-        <button class="bubble-close-btn" id="bubble-close-btn" aria-label="Close dialog">&times;</button>
-      </div>
-      <div class="bubble-body" id="bubble-body-content">
-        <p>Namaste seeker! I am your Vedic Guide. I can help you deconstruct the mantras, pronunciation, and the history of Vedic wisdom.</p>
-        <div class="quick-questions-grid">
-          <button class="quick-quest-btn" data-type="timeline">Tell me about Vedic history</button>
-          <button class="quick-quest-btn" data-type="explorer">How do I explore mantras?</button>
-          <button class="quick-quest-btn" data-type="recitation">What is traditional recitation?</button>
-          <button class="quick-quest-btn" data-type="meaning">What is the meaning of life?</button>
-          <button class="quick-quest-btn" data-type="gods">Who are the Vedic Gods?</button>
-          <button class="quick-quest-btn" data-type="meditation">How do I start meditating?</button>
-          <button class="quick-quest-btn" data-type="go-home" style="background: rgba(212, 175, 55, 0.15); border-color: rgba(212, 175, 55, 0.4); font-weight: bold; text-align: center; margin-top: 0.25rem;">🏠 Go Back to Home</button>
-        </div>
-      </div>
-      <div class="bubble-footer">
-        <button class="avatar-link-btn" id="avatar-link-btn">Access Verified Portals ➔</button>
-      </div>
-    </div>
-    <div class="avatar-image-container" id="avatar-image-container" title="Click to talk to Vedic Sage AI">
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" data-src="images/avatar.jpg" alt="Vedic Guru 3D AI Avatar" class="avatar-img">
-      <div class="pulse-ring"></div>
-      <div class="avatar-status-dot"></div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="app-footer">
-    <p>&copy; 2026 VedaWeb Engine. For academic, linguistic, and philological educational use. All primary texts are grounded in authoritative critical editions.</p>
-  </footer>
-
-  <!-- Scripts -->
-  <script src="vedas_data.js"></script>
-  <script src="app.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>
